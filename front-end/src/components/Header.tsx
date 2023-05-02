@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
-import { MdKeyboardArrowDown } from "react-icons/md";
-import { Link, useNavigate } from "react-router-dom";
+import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 type NavItemInfo = {
     name: string;
@@ -56,7 +56,7 @@ const NavItem = ({ item }: NavProps) => {
               onClick={toggleDropdownHandler}
             >
               <span>{item.name}</span>
-              <MdKeyboardArrowDown />
+              {dropdown ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}
             </button>
             <div
               className={`${
@@ -85,7 +85,7 @@ const NavItem = ({ item }: NavProps) => {
 
 const Header = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [profileDrowpdown, setProfileDrowpdown] = useState(false);
+//   const [profileDrowpdown, setProfileDrowpdown] = useState(false);
 
   const navVisibility = () => {
     setIsVisible((visible) => !visible);
@@ -114,7 +114,7 @@ const Header = () => {
         <div
           className={`${
             isVisible ? "right-0" : "-right-full"
-          } transition-all duration-300 mt-[56px] lg:mt-0 bg-dark-hard lg:bg-transparent z-[49] flex flex-col w-full lg:w-auto justify-center lg:justify-end lg:flex-row fixed top-8 bottom-0 lg:static gap-x-9 items-center`}
+          } transition-all duration-300 mt-[56px] lg:mt-0 bg-dark-hard lg:bg-transparent z-[49] flex flex-col w-full lg:w-auto justify-center lg:justify-end lg:flex-row fixed top-0 bottom-0 lg:static gap-x-9 items-center`}
         >
           <ul className="text-white items-center gap-y-5 lg:text-dark-soft flex flex-col lg:flex-row gap-x-2 font-semibold">
             {navItemsInfo.map((item) => (
