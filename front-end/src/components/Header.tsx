@@ -2,6 +2,7 @@ import { useState } from "react";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { Link } from "react-router-dom";
+import images from "../constants/images";
 
 type NavItemInfo = {
     name: string;
@@ -95,14 +96,7 @@ const Header = () => {
     <section className="sticky top-0 left-0 right-0 z-50 bg-white">
       <header className="container mx-auto px-5 flex justify-between py-4 items-center">
         <Link to="/">
-          <div className="lg:ml-[-50px] flex items-center justify-center gap-3">
-          <span className="text-primary text-xl">Blog App</span>
-          <img
-            className="w-8 h-8"
-            src={"https://cdn-icons-png.flaticon.com/512/2127/2127414.png"}
-            alt="logo"
-          />
-          </div>
+          <img className="w-16 scale-[2.2]" src={images.logo} alt="logo" />
         </Link>
         <div className="lg:hidden z-50">
           {isVisible ? (
