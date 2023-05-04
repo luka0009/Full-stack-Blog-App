@@ -2,13 +2,17 @@ import CommentForm from "./CommentForm"
 import { getCommentsData } from "../../data/comments";
 import { useEffect, useState } from "react";
 import { Comment } from "../../types";
+import CommentComponent from "./CommentComponent";
 
 type Props = {
     className: string,
+    loggedInUserId: string;
 }
 
-const Comments = ({ className }: Props) => {
+const Comments = ({ className, loggedInUserId }: Props) => {
   const [comments, setComments] = useState<Comment[] | null>(null); 
+  const mainComments = comments?.filter((comment) => comment.parent === null)
+
 
   console.log(comments);
 
@@ -40,6 +44,17 @@ const Comments = ({ className }: Props) => {
   return (
     <div className={`${className}`}>
         <CommentForm btnLabel="Post" initialText="" formCancelHandler={null} formSubmitHanlder={(value) => addCommentHandler(value)}/>
+        <div className="space-y-4 mt-8">
+            {mainComments?.map((comment) => {
+                return (
+                    <CommentComponent 
+                    key={comment._id}
+                    comment={comment}
+                    loggedInUserId={loggedInUserId}
+                    />
+                )
+            })}
+        </div>    
     </div>
   )
 }

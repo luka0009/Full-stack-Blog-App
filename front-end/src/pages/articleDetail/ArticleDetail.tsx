@@ -78,7 +78,7 @@ const ArticleDetail = () => {
               veniam illum molestiae reiciendis, doloribus iure quisquam!
             </p>
           </div>
-          <Comments className="mt-10"/>
+          <Comments className="mt-10" loggedInUserId='a'/>
         </article>
         <SuggestedPosts
           className="mt-8 lg:mt-12 bg-gray-100 lg:max-w-xs"

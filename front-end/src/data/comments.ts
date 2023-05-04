@@ -42,9 +42,9 @@ export const getCommentsData = async (): Promise<Comment[]> => {
       _id: "13",
       user: {
         _id: "c",
-        name: "Tashi",
+        name: "Jemal Baghasjvili",
       },
-      desc: "*Iumorinas musika*",
+      desc: "*Xumroba da Iumorinas musika*",
       post: "1",
       parent: null,
       replyOnUser: null,
