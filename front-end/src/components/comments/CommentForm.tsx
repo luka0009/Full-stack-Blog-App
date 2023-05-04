@@ -3,8 +3,8 @@ import { FormEvent, useState } from "react";
 interface Props {
   btnLabel: string;
   formSubmitHanlder: (value: string, parent?: any, replyOnUser?: any) => void;
-  formCancelHandler: any;
-  initialText: string;
+  formCancelHandler?: any;
+  initialText?: string;
 }
 
 const CommentForm = ({
