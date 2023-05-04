@@ -5,11 +5,11 @@ import { Link } from "react-router-dom";
 import images from "../constants/images";
 
 type NavItemInfo = {
-    name: string;
-    type: string;
-    href?: string;
-    items?: { title: string; href: string }[];
-  };
+  name: string;
+  type: string;
+  href?: string;
+  items?: { title: string; href: string }[];
+};
 
 const navItemsInfo: NavItemInfo[] = [
   { name: "Home", type: "link", href: "/" },
@@ -31,40 +31,40 @@ interface NavProps {
 }
 
 const NavItem = ({ item }: NavProps) => {
-    const [dropdown, setDropdown] = useState(false);
+  const [dropdown, setDropdown] = useState(false);
 
-    const toggleDropdownHandler = () => {
-      setDropdown((curState) => {
-        return !curState;
-      });
-    };
-  
-    return (
-      <li className="relative group">
-        {item.type === "link" ? (
-          <>
-            <Link to={item.href || '/'} className="px-4 py-2">
-              {item.name}
-            </Link> 
-            <span className="cursor-pointer text-blue-500 absolute transition-all duration-500 font-bold right-0 top-0 group-hover:right-[90%] opacity-0 group-hover:opacity-100">
-              /
-            </span>
-          </>
-        ) : (
-          <div className="flex flex-col items-center">
-            <button
-              className="px-4 py-2 flex gap-x-1 items-center"
-              onClick={toggleDropdownHandler}
-            >
-              <span>{item.name}</span>
-              {dropdown ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}
-            </button>
-            <div
-              className={`${
-                dropdown ? "block" : "hidden"
-              } lg:hidden transition-all duration-500 pt-4 lg:pt-0 lg:absolute lg:bottom-0 lg:right-0 lg:transform lg:translate-y-full lg:group-hover:block w-max`}
-            >
-              {item.items && (
+  const toggleDropdownHandler = () => {
+    setDropdown((curState) => {
+      return !curState;
+    });
+  };
+
+  return (
+    <li className="relative group">
+      {item.type === "link" ? (
+        <>
+          <Link to={item.href || "/"} className="px-4 py-2">
+            {item.name}
+          </Link>
+          <span className="cursor-pointer text-blue-500 absolute transition-all duration-500 font-bold right-0 top-0 group-hover:right-[90%] opacity-0 group-hover:opacity-100">
+            /
+          </span>
+        </>
+      ) : (
+        <div className="flex flex-col items-center">
+          <button
+            className="px-4 py-2 flex gap-x-1 items-center"
+            onClick={toggleDropdownHandler}
+          >
+            <span>{item.name}</span>
+            {dropdown ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}
+          </button>
+          <div
+            className={`${
+              dropdown ? "block" : "hidden"
+            } lg:hidden transition-all duration-500 pt-4 lg:pt-0 lg:absolute lg:bottom-0 lg:right-0 lg:transform lg:translate-y-full lg:group-hover:block w-max`}
+          >
+            {item.items && (
               <ul className="bg-dark-soft lg:bg-transparent text-center flex flex-col shadow-lg rounded-lg overflow-hidden lg:-mt-1">
                 {item.items.map((page, index) => (
                   <Link
@@ -81,12 +81,12 @@ const NavItem = ({ item }: NavProps) => {
         </div>
       )}
     </li>
-    );
+  );
 };
 
 const Header = () => {
   const [isVisible, setIsVisible] = useState(false);
-//   const [profileDrowpdown, setProfileDrowpdown] = useState(false);
+  //   const [profileDrowpdown, setProfileDrowpdown] = useState(false);
 
   const navVisibility = () => {
     setIsVisible((visible) => !visible);
@@ -115,9 +115,7 @@ const Header = () => {
               <NavItem key={item.name} item={item} />
             ))}
           </ul>
-          <button
-            className="mt-5 lg:mt-0 border-2 border-blue-500 px-6 py-2 rounded-full text-blue-500 font-semibold hover:bg-blue-500 hover:text-white transition-all duration-300"
-          >
+          <button className="mt-5 lg:mt-0 border-2 border-blue-500 px-6 py-2 rounded-full text-blue-500 font-semibold hover:bg-blue-500 hover:text-white transition-all duration-300">
             Sign in
           </button>
         </div>
