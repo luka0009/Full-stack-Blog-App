@@ -3,6 +3,7 @@ import BreadCrumbs from "../../components/BreadCrumbs";
 import MainLayout from "../../components/MainLayout";
 import SuggestedPosts from "./container/SuggestedPosts";
 import Comments from "../../components/comments/Comments";
+import SocialShareButtons from "../../components/SocialShareButtons";
 
 const ArticleDetail = () => {
   const breadCrumbsData = [
@@ -72,20 +73,33 @@ const ArticleDetail = () => {
             Lorem ipsum dolor sit amet consectetur adipisicing.
           </h1>
           <div className="mt-4 text-dark-soft">
-            <p className="leading-4">
+            <p className="leading-6">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Recusandae in, inventore rem fuga cumque est magnam eveniet vitae
               veniam illum molestiae reiciendis, doloribus iure quisquam!
             </p>
           </div>
-          <Comments className="mt-10" loggedInUserId='a'/>
+          <Comments className="mt-10" loggedInUserId="a" />
         </article>
-        <SuggestedPosts
-          className="mt-8 lg:mt-12 bg-gray-100 lg:max-w-xs"
-          header="Latest articles"
-          tags={tagsData}
-          posts={postsData}
-        />
+        <div>
+          <SuggestedPosts
+            className="mt-8 lg:mt-12 bg-gray-100 lg:max-w-xs"
+            header="Latest articles"
+            tags={tagsData}
+            posts={postsData}
+          />
+          <div className="mt-7">
+            <h2 className="font-roboto font-medium text-dark-hard mb-4 md:text-lg">Share on:</h2>
+            <SocialShareButtons
+              url={encodeURI(
+                "https://moonfo.com/post/client-side-and-server-side-explanation"
+              )}
+              title={encodeURIComponent(
+                "Client-side and Server-side explanation"
+              )}
+            />
+          </div>
+        </div>
       </section>
     </MainLayout>
   );
