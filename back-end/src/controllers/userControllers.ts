@@ -1,17 +1,17 @@
 import express from 'express';
 import User from '../models/userModel';
 
-export const registerUser = async (req: express.Request, res: express.Response) => {
+export const registerUser = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
         const {name, email, password} = req.body;
         
         if(!name || !email || !password) {
-            return res.status(400).json({message: 'Please fill in all the fields'})
+            throw new Error('Please fill in all the fields');
         }
 
         const userExists = await User.findOne({ email });
         if(userExists) {
-            return res.status(400).json({message: "User already exists"})
+            throw new Error('User already exists');
         };
 
         const user = await User.create({
@@ -30,7 +30,7 @@ export const registerUser = async (req: express.Request, res: express.Response) 
             token: await user.generateJWT(),
         })
     } catch (error) {
-        return res.status(500).json({message: 'Something went wrong'});
+        next(error);
     }    
 };
 

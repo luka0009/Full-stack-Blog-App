@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/db";
 import userRoutes from "./routes/userRoutes";
+import { errorResponseHandler, invalidPathHandler } from "./middleware/errorHandler";
 
 
 dotenv.config();
@@ -16,6 +17,8 @@ app.get('/', (req: express.Request, res: express.Response) => {
 });
 
 app.use('/api/users', userRoutes);
+app.use(invalidPathHandler);
+app.use(errorResponseHandler);
 
 app.listen(PORT, () => {
     console.log('Server is running on Port:', PORT);
