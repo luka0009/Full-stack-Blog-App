@@ -52,6 +52,10 @@ userSchema.methods.generateJWT = async function () {
   });
 };
 
+userSchema.methods.comparePassword = async function(enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password);
+} 
+
 interface IUser extends Document {
   avatar: string;
   name: string;
@@ -61,6 +65,7 @@ interface IUser extends Document {
   admin: boolean;
   verificationCode?: string;
   generateJWT(): Promise<string>;
+  comparePassword(password: string): Promise<boolean>;
 }
 
 interface IUserModel extends mongoose.Model<IUser> {}
