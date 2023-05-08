@@ -1,24 +1,39 @@
 //@ts-nocheck
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import MainLayout from "../../components/MainLayout";
 import { useForm, FieldValues } from "react-hook-form";
-import { useMutation } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query';
 import { signup } from "../../services/index/users";
 import toast from 'react-hot-toast';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import { setUserInfo } from "../../store/features/user/userSlice";
+import { useEffect } from "react";
 
 const RegisterPage = () => {
+  const userInfo = useAppSelector((state) => state.user.userInfo)
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate();
+
   const { mutate, isLoading } = useMutation({
     mutationFn: ({ name, email, password }) => {
         return signup({ name, email, password })
     },
     onSuccess: (data) => {
         console.log(data);
+        dispatch(setUserInfo(data));
+        localStorage.setItem('user', JSON.stringify(data));
     },
     onError:(error) => {
         toast.error(`Error: ${error.message}`);
         console.lof(error);
     }
-  })
+  });
+
+  useEffect(() => {
+    if(userInfo) {
+      navigate('/');
+    }
+  }, [navigate, userInfo]);
 
   const {
     register,
@@ -186,7 +201,7 @@ const RegisterPage = () => {
             <button
               type="submit"
               disabled={!isValid || isLoading}
-              className="bg-primary mt-2 text-white font-bold text-lg py-4 px-8 w-full rounded-lg mb-6 disabled:opacity-70 disabled:cursor-not-allowed"
+              className="bg-primary mt-2 text-white font-bold text-lg py-3 px-1 w-full rounded-lg mb-6 disabled:opacity-70 disabled:cursor-not-allowed"
             >
               Register
             </button>
