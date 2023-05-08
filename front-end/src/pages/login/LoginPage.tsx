@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import MainLayout from "../../components/MainLayout";
 import { useForm, FieldValues } from "react-hook-form";
 import { useMutation } from '@tanstack/react-query';
-import { login } from "../../services/index/users";
+import { login } from "../../services/users";
 import toast from 'react-hot-toast';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { setUserInfo } from "../../store/features/user/userSlice";
