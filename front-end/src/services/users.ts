@@ -17,7 +17,8 @@ interface GetUserProps {
 
 interface UpdateProps {
   token: string;
-  userData: any;
+  userData?: any;
+  formData?: any;
 }
 
 export const signup = async ({ name, email, password }: Props) => {
@@ -83,6 +84,28 @@ export const updateProfile = async ({ token, userData }: UpdateProps) => {
     const { data } = await axios.patch(
       "http://localhost:5000/api/users/updateprofile",
       userData,
+      config
+    );
+    return data;
+  } catch (error: any) {
+    if (error.response && error.response.data.message)
+      throw new Error(error.response.data.message);
+    throw new Error(error.message);
+  }
+};
+
+export const updateProfilePicture = async ({ token, formData }: any) => {
+  try {
+    const config = {
+      headers: {
+        "Content-type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const { data } = await axios.patch(
+      "http://localhost:5000/api/users/updateprofilepic",
+      formData,
       config
     );
     return data;

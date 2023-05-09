@@ -4,6 +4,7 @@ import connectDB from "./config/db";
 import userRoutes from "./routes/userRoutes";
 import { errorResponseHandler, invalidPathHandler } from "./middleware/errorHandler";
 import cors from 'cors';
+import path from 'path';
 
 dotenv.config();
 connectDB();
@@ -18,6 +19,7 @@ app.get('/', (req: express.Request, res: express.Response) => {
 });
 
 app.use('/api/users', userRoutes);
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 app.use(invalidPathHandler);
 app.use(errorResponseHandler);
 
