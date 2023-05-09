@@ -1,13 +1,18 @@
-import { AiFillHeart, AiFillInstagram, AiFillYoutube, AiOutlineTwitter } from "react-icons/ai"
-import { BsTelegram } from "react-icons/bs"
-import { FaFacebook } from "react-icons/fa"
-import images from "../constants/images"
+import {
+  AiFillHeart,
+  AiFillInstagram,
+  AiFillYoutube,
+  AiOutlineTwitter,
+} from "react-icons/ai";
+import { BsTelegram } from "react-icons/bs";
+import { FaFacebook } from "react-icons/fa";
+import images from "../constants/images";
 
 const Footer = () => {
   return (
     <section className="bg-dark-hard">
-      <footer className="container mx-auto grid grid-cols-10 px-5 py-10 gap-y-10 gap-x-5 md:pt-9 md:grid-cols-12 lg:grid-cols-10 lg:gap-x-10">
-        <div className="col-span-5 ml-auto mr-auto md:col-span-4 md:ml-0 lg:col-span-2">
+      <footer className="container mx-auto grid grid-cols-10 px-5 py-10 gap-y-10 gap-x-5 md:pt-20 md:grid-cols-12 lg:grid-cols-10 lg:gap-x-10">
+        <div className="col-span-5 md:col-span-4 lg:col-span-2">
           <h3 className="text-dark-light font-bold md:text-lg">Product</h3>
           <ul className="text-[#959EAD] text-sm mt-5 space-y-4 md:text-base">
             <li>
@@ -47,7 +52,7 @@ const Footer = () => {
             </li>
           </ul>
         </div>
-        <div className="col-span-5 ml-auto mr-auto md:ml-0 md:col-span-4 md:col-start-5 lg:col-start-auto lg:col-span-2">
+        <div className="col-span-5 md:col-span-4 md:col-start-5 lg:col-start-auto lg:col-span-2">
           <h3 className="text-dark-light font-bold md:text-lg">Company</h3>
           <ul className="text-[#959EAD] text-sm mt-5 space-y-4 md:text-base">
             <li>
@@ -78,11 +83,11 @@ const Footer = () => {
             </li>
           </ul>
         </div>
-        <div className="col-span-10 md:order-first md:col-span-4 md:mt-24 md:ml-[-15px] lg:col-span-2 lg:mt-[-50px] lg:ml-[-40px]">
+        <div className="col-span-10 md:order-first md:col-span-4 lg:col-span-2">
           <img
             src={images.logo}
             alt="logo"
-            className="brightness-0 invert mx-auto md:mx-0 md:ml-[-40px] mb-[-30px]"
+            className="brightness-0 invert mx-auto md:mx-0"
           />
           <p className="text-sm text-dark-light text-center mt-4 md:text-left md:text-base lg:text-sm">
             Build a modern and creative website with crealand
@@ -125,7 +130,7 @@ const Footer = () => {
         </div>
       </footer>
     </section>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

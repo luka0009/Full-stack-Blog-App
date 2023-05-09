@@ -15,6 +15,11 @@ interface GetUserProps {
   token: string;
 }
 
+interface UpdateProps {
+  token: string;
+  userData: any;
+}
+
 export const signup = async ({ name, email, password }: Props) => {
   try {
     const { data } = await axios.post(
@@ -55,7 +60,10 @@ export const getUserProfile = async ({ token }: GetUserProps) => {
       },
     };
 
-    const { data } = await axios.get("http://localhost:5000/api/users/profile", config);
+    const { data } = await axios.get(
+      "http://localhost:5000/api/users/profile",
+      config
+    );
     return data;
   } catch (error: any) {
     if (error.response && error.response.data.message)
@@ -64,3 +72,23 @@ export const getUserProfile = async ({ token }: GetUserProps) => {
   }
 };
 
+export const updateProfile = async ({ token, userData }: UpdateProps) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const { data } = await axios.patch(
+      "http://localhost:5000/api/users/updateprofile",
+      userData,
+      config
+    );
+    return data;
+  } catch (error: any) {
+    if (error.response && error.response.data.message)
+      throw new Error(error.response.data.message);
+    throw new Error(error.message);
+  }
+};

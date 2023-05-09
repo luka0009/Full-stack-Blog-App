@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import MainLayout from "../../components/MainLayout";
 import { useForm, FieldValues } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
-import { getUserProfile } from "../../services/users";
+import { updateProfile, getUserProfile } from "../../services/users";
 import toast from "react-hot-toast";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { setUserInfo } from "../../store/features/user/userSlice";
@@ -36,8 +36,8 @@ const ProfilePage = () => {
       });
     },
     onSuccess: (data) => {
-      dispatch(userActions.setUserInfo(data));
-      localStorage.setItem("account", JSON.stringify(data));
+      dispatch(setUserInfo(data));
+      localStorage.setItem("user", JSON.stringify(data));
       queryClient.invalidateQueries(["profile"]);
       toast.success("Profile is updated");
     },
