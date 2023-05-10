@@ -102,3 +102,47 @@ export const deletePost = async (
     next(error);
   }
 };
+
+export const getPost = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  try {
+      const post = await Post.findOne({ slug: req.params.slug }).populate([
+        {
+          path: 'user',
+          select: ['avatar', 'name'],
+        },
+        {
+          path: 'comments',
+          match: {
+            check: true,
+            parent: null,
+          },
+          populate: [
+            {
+              path: 'user',
+              select: ['avatar', 'name'],
+            },
+            {
+              path: 'replies',
+              match: {
+                check: true,
+              }
+            }
+          ]
+        }
+      ]);
+      
+      if(!post) {
+        const error = new Error("Post doesn't exist");
+        return next(error);
+      }
+
+      return res.status(200).json(post);
+    }
+   catch (error) {
+    next(error);
+  }
+};
