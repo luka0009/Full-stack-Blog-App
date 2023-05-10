@@ -20,8 +20,8 @@ const postSchema = new mongoose.Schema(
       required: true,
     },
     photo: {
-      type: Boolean,
-      required: true,
+      type: String,
+      required: false,
     },
     user: {
       type: Schema.Types.ObjectId,
