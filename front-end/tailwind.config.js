@@ -1,14 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       screens: {
         xs: "480px",
-        lg: "1000px"
+        lg: "1000px",
       },
       colors: {
         primary: "#1565D8",
@@ -24,6 +21,5 @@ export default {
       },
     },
   },
-  plugins: [],
-}
-
+  plugins: [require("@tailwindcss/typography")],
+};

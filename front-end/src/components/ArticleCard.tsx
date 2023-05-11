@@ -21,8 +21,8 @@ const ArticleCard = ({ className, post }: CardProps) => {
               ? stables.UPLOAD_FOLDER_BASE_URL + post.photo
               : images.blogpost
           }
-          alt="title"
-          className="w-full object-contain object-center h-auto
+          alt={"title"}
+          className="w-full object-cover object-center h-auto
            md:h-52 lg:h-48 xl:h-60 border-2 border-sky-500 rounded-xl"
         />
       </Link>
