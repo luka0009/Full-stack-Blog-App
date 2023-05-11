@@ -146,3 +146,23 @@ export const getPost = async (
     next(error);
   }
 };
+
+export const getAllPosts = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  try {
+      const posts = await Post.find({}).populate([
+        {
+          path: 'user',
+          select: ['avatar', 'name', 'verified']
+        }
+      ]);
+
+      res.json(posts);
+    }
+   catch (error) {
+    next(error);
+  }
+};
