@@ -100,7 +100,7 @@ const ArticleDetail = () => {
                 : images.blogpost
             }
             alt={data?.title}
-            className="rounded-xl w-full"
+            className="rounded-xl w-full h-[300px] md:h-[430px] object-fill"
           />
           <div className="mt-4 flex gap-2">
             {data?.categories.map((category: any) => {

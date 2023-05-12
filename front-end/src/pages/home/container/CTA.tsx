@@ -1,3 +1,5 @@
+import images from "../../../constants/images";
+
 const CTA = () => {
   return (
     <>
@@ -47,7 +49,7 @@ const CTA = () => {
               <div className="w-1/2 h-1/2 bg-white rounded-lg opacity-[.06] absolute -bottom-[10%] -left-[8%]" />
               <div className="w-full rounded-xl bg-white p-3 z-[1] relative">
                 <img
-                  src={'https://raw.githubusercontent.com/moonfo-youtube-tutorials/frontend-side-mern-blog-app/master/src/assets/CtaImage.jpg'}
+                  src={images.ctaImage}
                   alt="title"
                   className="w-full object-cover object-center h-auto md:h-52 lg:h-48 xl:h-60"
                 />

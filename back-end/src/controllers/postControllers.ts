@@ -16,8 +16,35 @@ export const createPost = async (
       caption: "sample caption",
       slug: uuidv4(),
       body: {
-        type: "doc",
-        content: [],
+        "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Wow, this editor instance exports its content as JSON"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "bold"
+            },
+            {
+              "type": "italic"
+            }
+          ],
+          "text": "this is a bold text"
+        }
+      ]
+    }
+  ]
       },
       photo: "",
       //@ts-ignore
