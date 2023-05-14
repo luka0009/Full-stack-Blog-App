@@ -19,7 +19,7 @@ const Articles = () => {
     <section className="flex flex-col container mx-auto px-5 py-6 md:py-0 lg:-mt-6">
       <div className="pb-10 grid grid-cols-1 gap-y-12 xs:grid-cols-2 gap-x-12 lg:grid-cols-3 lg:gap-x-6">
       {isLoading ? (
-          [...Array(3)].map((item, index) => (
+          [...Array(3)].map((_item, index) => (
             <ArticleCardSkeleton
               key={index}
               className="w-80 mx-auto xs:w-auto sm:w-full"

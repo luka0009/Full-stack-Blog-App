@@ -7,7 +7,6 @@ import SocialShareButtons from "../../components/SocialShareButtons";
 import { useQuery } from "@tanstack/react-query";
 import { getSinglePost } from "../../services/posts";
 import { useState } from "react";
-import { BsPhone } from "react-icons/bs";
 import stables from "../../constants/stables";
 import images from "../../constants/images";
 import { generateHTML } from "@tiptap/html";

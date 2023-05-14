@@ -25,7 +25,7 @@ const ArticleDetailSkeleton = () => {
         {/* title */}
         <div className="w-[20%] h-2 rounded-lg bg-slate-300" />
         <div className="grid gap-y-5 mt-5 md:grid-cols-2 md:gap-x-5 lg:grid-cols-1">
-          {[...Array(6)].map((item, index) => (
+          {[...Array(6)].map((_item, index) => (
             <div
               key={index}
               className="flex space-x-3 flex-nowrap items-center"
