@@ -17,6 +17,8 @@ import Paragraph from "@tiptap/extension-paragraph";
 import Text from "@tiptap/extension-text";
 import Italic from "@tiptap/extension-italic";
 import parse from "html-react-parser";
+import ArticleDetailSkeleton from "./components/ArticleDetailSkeleton";
+import ErrorMessage from "../../components/ErrorMessage";
 
 const postsData = [
   {
@@ -90,6 +92,11 @@ const ArticleDetail = () => {
 
   return (
     <MainLayout>
+      {isLoading ? (
+        <ArticleDetailSkeleton />
+      ) : isError ? (
+        <ErrorMessage message="Unable to retrieve the post"/>
+      ) : (
       <section className="container mx-auto max-w-5xl flex flex-col px-5 py-5 lg:flex-row lg:gap-x-5 lg:items-start">
         <article className="flex-1">
           <BreadCrumbs data={breadCrumbsData} />
@@ -142,6 +149,7 @@ const ArticleDetail = () => {
           </div>
         </div>
       </section>
+      )}
     </MainLayout>
   );
 };

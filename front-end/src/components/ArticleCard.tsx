@@ -23,7 +23,7 @@ const ArticleCard = ({ className, post }: CardProps) => {
           }
           alt={"title"}
           className="w-full object-cover object-center h-auto
-           md:h-52 lg:h-48 xl:h-60 border-2 border-sky-500 rounded-xl"
+           md:h-52 lg:h-48 xl:h-60 rounded-md"
         />
       </Link>
       <div className="p-5">

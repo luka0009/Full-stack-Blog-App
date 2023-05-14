@@ -6,6 +6,7 @@ export default {
       screens: {
         xs: "480px",
         lg: "1000px",
+        xl: '1190px',
       },
       colors: {
         primary: "#1565D8",
