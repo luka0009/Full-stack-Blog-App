@@ -18,6 +18,7 @@ import Italic from "@tiptap/extension-italic";
 import parse from "html-react-parser";
 import ArticleDetailSkeleton from "./components/ArticleDetailSkeleton";
 import ErrorMessage from "../../components/ErrorMessage";
+import { useAppSelector } from "../../store/hooks";
 
 const postsData = [
   {
@@ -67,6 +68,7 @@ interface BrCrumbs {
 
 const ArticleDetail = () => {
   const { slug } = useParams();
+  const userInfo = useAppSelector((state) => state.user.userInfo);
   const [breadCrumbsData, setbreadCrumbsData] = useState<BrCrumbs[]>([]);
   const [body, setBody] = useState(null);
 
@@ -124,7 +126,11 @@ const ArticleDetail = () => {
             {data?.title}
           </h1>
           <div className="mt-4 prose prose-sm sm:prose-base">{body}</div>
-          <Comments className="mt-10" loggedInUserId="a" />
+          <Comments 
+          className="mt-10" 
+          loggedInUserId={userInfo?._id} 
+          comments={data?.comments}
+          />
         </article>
         <div>
           <SuggestedPosts

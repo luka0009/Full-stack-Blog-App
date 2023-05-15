@@ -16,35 +16,35 @@ export const createPost = async (
       caption: "sample caption",
       slug: uuidv4(),
       body: {
-        "type": "doc",
-  "content": [
-    {
-      "type": "paragraph",
-      "content": [
-        {
-          "type": "text",
-          "text": "Wow, this editor instance exports its content as JSON"
-        }
-      ]
-    },
-    {
-      "type": "paragraph",
-      "content": [
-        {
-          "type": "text",
-          "marks": [
-            {
-              "type": "bold"
-            },
-            {
-              "type": "italic"
-            }
-          ],
-          "text": "this is a bold text"
-        }
-      ]
-    }
-  ]
+        type: "doc",
+        content: [
+          {
+            type: "paragraph",
+            content: [
+              {
+                type: "text",
+                text: "Wow, this editor instance exports its content as JSON",
+              },
+            ],
+          },
+          {
+            type: "paragraph",
+            content: [
+              {
+                type: "text",
+                marks: [
+                  {
+                    type: "bold",
+                  },
+                  {
+                    type: "italic",
+                  },
+                ],
+                text: "this is a bold text",
+              },
+            ],
+          },
+        ],
       },
       photo: "",
       //@ts-ignore
@@ -136,40 +136,45 @@ export const getPost = async (
   next: express.NextFunction
 ) => {
   try {
-      const post = await Post.findOne({ slug: req.params.slug }).populate([
-        {
-          path: 'user',
-          select: ['avatar', 'name'],
+    const post = await Post.findOne({ slug: req.params.slug }).populate([
+      {
+        path: "user",
+        select: ["avatar", "name"],
+      },
+      {
+        path: "comments",
+        match: {
+          check: true,
+          parent: null,
         },
-        {
-          path: 'comments',
-          match: {
-            check: true,
-            parent: null,
+        populate: [
+          {
+            path: "user",
+            select: ["avatar", "name"],
           },
-          populate: [
-            {
-              path: 'user',
-              select: ['avatar', 'name'],
+          {
+            path: "replies",
+            match: {
+              check: true,
             },
-            {
-              path: 'replies',
-              match: {
-                check: true,
-              }
-            }
-          ]
-        }
-      ]);
-      
-      if(!post) {
-        const error = new Error("Post doesn't exist");
-        return next(error);
-      }
+            populate: [
+              {
+                path: "user",
+                select: ["avatar", "name"],
+              },
+            ],
+          },
+        ],
+      },
+    ]);
 
-      return res.status(200).json(post);
+    if (!post) {
+      const error = new Error("Post doesn't exist");
+      return next(error);
     }
-   catch (error) {
+
+    return res.status(200).json(post);
+  } catch (error) {
     next(error);
   }
 };
@@ -180,16 +185,15 @@ export const getAllPosts = async (
   next: express.NextFunction
 ) => {
   try {
-      const posts = await Post.find({}).populate([
-        {
-          path: 'user',
-          select: ['avatar', 'name', 'verified']
-        }
-      ]);
+    const posts = await Post.find({}).populate([
+      {
+        path: "user",
+        select: ["avatar", "name", "verified"],
+      },
+    ]);
 
-      res.json(posts);
-    }
-   catch (error) {
+    res.json(posts);
+  } catch (error) {
     next(error);
   }
 };

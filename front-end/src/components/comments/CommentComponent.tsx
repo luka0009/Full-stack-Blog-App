@@ -1,6 +1,8 @@
 import { FiMessageSquare, FiEdit2, FiTrash } from "react-icons/fi";
 import { Comment } from "../../types";
 import CommentForm from "./CommentForm";
+import stables from "../../constants/stables";
+import images from "../../constants/images";
 
 type Props = {
   comment: Comment;
@@ -9,9 +11,9 @@ type Props = {
   setAffectedComment?: any;
   addComment: (value: string, parent?: any, replyOnUser?: any) => void;
   updateComment: (value: string, commentId: string) => void;
-  deleteComment: (commentId: string) => void,
+  deleteComment: (commentId: string) => void;
   parentId?: string | null;
-  replies: Comment[] 
+  replies: Comment[];
 };
 
 const CommentComponent = ({
@@ -39,9 +41,15 @@ const CommentComponent = ({
   const replyOnUserId = comment.user._id;
 
   return (
-    <div className='"flex flex-nowrap items-start gap-x-3 bg-[#F2F4F5] p-3 rounded-lg'>
+    <div
+      className={`flex flex-nowrap items-start gap-x-3 bg-[#F2F4F5] p-3 rounded-lg`}
+    >
       <img
-        src="https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=200"
+        src={
+          comment?.user?.avatar
+            ? stables.UPLOAD_FOLDER_BASE_URL + comment?.user?.avatar
+            : images.userImage
+        }
         alt="profile"
         className="w-9 h-9 md:w-10 md:h-10 object-cover rounded-full"
       />
@@ -93,9 +101,9 @@ const CommentComponent = ({
                 <FiEdit2 className="w-4 h-auto" />
                 <span>Edit</span>
               </button>
-              <button 
-              onClick={() => deleteComment(comment._id)}
-              className="flex items-center space-x-2"
+              <button
+                onClick={() => deleteComment(comment._id)}
+                className="flex items-center space-x-2"
               >
                 <FiTrash className="w-4 h-auto" />
                 <span>Delete</span>
@@ -113,12 +121,11 @@ const CommentComponent = ({
             }
           />
         )}
-        {
-          replies.length > 0 && (
-            <div> 
-              {replies.map((reply: Comment) => {
-                return (
-                  <CommentComponent 
+        {replies.length > 0 && (
+          <div>
+            {replies.map((reply: Comment) => {
+              return (
+                <CommentComponent
                   key={reply._id}
                   addComment={addComment}
                   affectedComment={affectedComment}
@@ -129,12 +136,11 @@ const CommentComponent = ({
                   replies={[]}
                   updateComment={updateComment}
                   parentId={comment._id}
-                  />
-                )
-              })}
-            </div>
-          )
-        }
+                />
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );
