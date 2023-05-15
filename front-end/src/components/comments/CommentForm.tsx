@@ -5,12 +5,14 @@ interface Props {
   formSubmitHanlder: (value: string, parent?: any, replyOnUser?: any) => void;
   formCancelHandler?: any;
   initialText?: string;
+  loading: boolean,
 }
 
 const CommentForm = ({
   btnLabel,
   formSubmitHanlder,
   formCancelHandler = null,
+  loading = false,
   initialText = "",
 }: Props) => {
   const [value, setValue] = useState<string>(initialText);
@@ -43,8 +45,10 @@ const CommentForm = ({
             </button>
           )}
           <button
+            disabled={loading}
             type="submit"
-            className="px-6 py-2.5 rounded-lg bg-primary text-white font-semibold"
+            className={`px-6 py-2.5 rounded-lg bg-primary
+             text-white font-semibold disabled:opacity-70 disabled:cursor-not-allowed`}
           >
             {btnLabel}
           </button>
