@@ -84,7 +84,7 @@ const CommentComponent = ({
               onClick={() =>
                 setAffectedComment({ type: "replying", _id: comment._id })
               }
-              className="flex items-center space-x-2"
+              className="flex items-center space-x-2 hover:text-slate-900 hover:font-bold transition duration-[0.33s]"
             >
               <FiMessageSquare className="w-4 h-auto" />
               <span>Reply</span>
@@ -96,14 +96,14 @@ const CommentComponent = ({
                 onClick={() =>
                   setAffectedComment({ type: "editing", _id: comment._id })
                 }
-                className="flex items-center space-x-2"
+                className="flex items-center space-x-2 hover:text-slate-900 hover:font-bold transition duration-[0.33s]"
               >
                 <FiEdit2 className="w-4 h-auto" />
                 <span>Edit</span>
               </button>
               <button
                 onClick={() => deleteComment(comment._id)}
-                className="flex items-center space-x-2"
+                className="flex items-center space-x-2 hover:text-slate-900 hover:font-bold transition duration-[0.33s]"
               >
                 <FiTrash className="w-4 h-auto" />
                 <span>Delete</span>

@@ -5,7 +5,7 @@ interface Props {
   formSubmitHanlder: (value: string, parent?: any, replyOnUser?: any) => void;
   formCancelHandler?: any;
   initialText?: string;
-  loading: boolean,
+  loading?: boolean,
 }
 
 const CommentForm = ({
