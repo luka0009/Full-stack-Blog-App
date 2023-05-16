@@ -2,8 +2,12 @@ import CommentForm from "./CommentForm";
 import { useState } from "react";
 import { Comment } from "../../types";
 import CommentComponent from "./CommentComponent";
-import { useMutation } from "@tanstack/react-query";
-import { createComment } from "../../services/comments";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  createComment,
+  deleteComment,
+  updateComment,
+} from "../../services/comments";
 import { useAppSelector } from "../../store/hooks";
 import { toast } from "react-hot-toast";
 
@@ -25,6 +29,7 @@ interface CommentDataProps {
 const Comments = ({ className, loggedInUserId, comments, postSlug }: Props) => {
   const [affectedComment, setAffectedComment] = useState(null);
   const userInfo = useAppSelector((state) => state.user.userInfo);
+  const queryClient = useQueryClient();
 
   const { mutate: mutateNewComment, isLoading: isLoadingNewComment } =
     useMutation({
@@ -38,15 +43,56 @@ const Comments = ({ className, loggedInUserId, comments, postSlug }: Props) => {
         return createComment({ token, desc, slug, parent, replyOnUser });
       },
       onSuccess: () => {
-        toast.success(`Comment added succesfully, \n
-          it will be visible after Admin confirms!
-        `);
+        toast.success(`Comment added succecsfully`);
+        queryClient.invalidateQueries(["blog", postSlug]);
       },
       onError: (error: any) => {
         toast.error(error.message);
         console.log(error);
-      }
+      },
     });
+
+  const { mutate: mutateUpdateComment } = useMutation({
+    mutationFn: ({
+      token,
+      desc,
+      commentId,
+    }: {
+      token: string;
+      desc: string;
+      commentId: string;
+    }) => {
+      return updateComment({ token, desc, commentId });
+    },
+    onSuccess: () => {
+      toast.success(`Comment updated succecsfully`);
+      queryClient.invalidateQueries(["blog", postSlug]);
+    },
+    onError: (error: any) => {
+      toast.error(error.message);
+      console.log(error);
+    },
+  });
+
+  const { mutate: mutateDeleteComment } = useMutation({
+    mutationFn: ({
+      token,
+      commentId,
+    }: {
+      token: string;
+      commentId: string;
+    }) => {
+      return deleteComment({ token, commentId });
+    },
+    onSuccess: () => {
+      toast.success(`Comment deleted succecsfully`);
+      queryClient.invalidateQueries(["blog", postSlug]);
+    },
+    onError: (error: any) => {
+      toast.error(error.message);
+      console.log(error);
+    },
+  });
 
   const addCommentHandler = (
     value: string,
@@ -65,11 +111,15 @@ const Comments = ({ className, loggedInUserId, comments, postSlug }: Props) => {
 
   const updateCommentHandler = (value: string, commentId: string) => {
     setAffectedComment(null);
-    return {value, commentId} 
+    mutateUpdateComment({
+      desc: value,
+      token: userInfo?.token,
+      commentId: commentId,
+    });
   };
 
   const deleteCommentHandler = (commentId: string) => {
-    return commentId
+    mutateDeleteComment({ token: userInfo?.token, commentId });
   };
 
   return (
