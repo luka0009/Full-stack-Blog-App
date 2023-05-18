@@ -14,6 +14,7 @@ export const createPost = async (
     const post = new Post({
       title: "sample title",
       caption: "sample caption",
+      tags: ["tag 1"],
       slug: uuidv4(),
       body: {
         type: "doc",

@@ -5,7 +5,7 @@ import SuggestedPosts from "./container/SuggestedPosts";
 import Comments from "../../components/comments/Comments";
 import SocialShareButtons from "../../components/SocialShareButtons";
 import { useQuery } from "@tanstack/react-query";
-import { getSinglePost } from "../../services/posts";
+import { getAllPosts, getSinglePost } from "../../services/posts";
 import { useState } from "react";
 import stables from "../../constants/stables";
 import images from "../../constants/images";
@@ -20,46 +20,6 @@ import ArticleDetailSkeleton from "./components/ArticleDetailSkeleton";
 import ErrorMessage from "../../components/ErrorMessage";
 import { useAppSelector } from "../../store/hooks";
 
-const postsData = [
-  {
-    _id: "1",
-    image:
-      "https://media.istockphoto.com/id/667718500/vector/3d-small-people-all-is-well.jpg?s=612x612&w=is&k=20&c=MgR85_Y0Jxg5YWdO0COKt0WceuA-L1qlMHXB4INq5ik=",
-    title: "Lorem ipsum dolor sit amet.",
-    createdAt: "2023-01-28T15:35:53.607+0000",
-  },
-  {
-    _id: "2",
-    image:
-      "https://media.istockphoto.com/id/667718500/vector/3d-small-people-all-is-well.jpg?s=612x612&w=is&k=20&c=MgR85_Y0Jxg5YWdO0COKt0WceuA-L1qlMHXB4INq5ik=",
-    title: "Lorem ipsum dolor sit amet.",
-    createdAt: "2023-01-28T15:35:53.607+0000",
-  },
-  {
-    _id: "3",
-    image:
-      "https://media.istockphoto.com/id/667718500/vector/3d-small-people-all-is-well.jpg?s=612x612&w=is&k=20&c=MgR85_Y0Jxg5YWdO0COKt0WceuA-L1qlMHXB4INq5ik=",
-    title: "Lorem ipsum dolor sit amet.",
-    createdAt: "2023-01-28T15:35:53.607+0000",
-  },
-  {
-    _id: "4",
-    image:
-      "https://media.istockphoto.com/id/667718500/vector/3d-small-people-all-is-well.jpg?s=612x612&w=is&k=20&c=MgR85_Y0Jxg5YWdO0COKt0WceuA-L1qlMHXB4INq5ik=",
-    title: "Lorem ipsum dolor sit amet.",
-    createdAt: "2023-01-28T15:35:53.607+0000",
-  },
-];
-
-const tagsData = [
-  "Medical",
-  "Lifestyle",
-  "Learn",
-  "Healthy",
-  "Food",
-  "Diet",
-  "Education",
-];
 
 interface BrCrumbs {
   name: string;
@@ -89,6 +49,11 @@ const ArticleDetail = () => {
       );
       console.log(data);
     },
+  });
+
+  const { data: postsData } = useQuery({
+    queryFn: () => getAllPosts(),
+    queryKey: ["posts"],
   });
 
   return (
@@ -137,7 +102,7 @@ const ArticleDetail = () => {
           <SuggestedPosts
             className="mt-8 lg:mt-12 bg-gray-100 lg:max-w-xs"
             header="Latest articles"
-            tags={tagsData}
+            tags={data?.tags}
             posts={postsData}
           />
           <div className="mt-7">
