@@ -11,10 +11,11 @@ export const createPost = async (
   next: express.NextFunction
 ) => {
   try {
+    const {title, caption, tags, text1, text2, text3, text4} = req.body;
     const post = new Post({
-      title: "sample title",
-      caption: "sample caption",
-      tags: ["tag 1"],
+      title: title || "sample title",
+      caption: caption || "sample caption",
+      tags: tags,
       slug: uuidv4(),
       body: {
         type: "doc",
@@ -24,7 +25,25 @@ export const createPost = async (
             content: [
               {
                 type: "text",
-                text: "Wow, this editor instance exports its content as JSON",
+                text: text1,
+              },
+            ],
+          },
+          {
+            type: "paragraph",
+            content: [
+              {
+                type: "text",
+                text: text2,
+              },
+            ],
+          },
+          {
+            type: "paragraph",
+            content: [
+              {
+                type: "text",
+                text: text3,
               },
             ],
           },
@@ -41,7 +60,7 @@ export const createPost = async (
                     type: "italic",
                   },
                 ],
-                text: "this is a bold text",
+                text: text4,
               },
             ],
           },

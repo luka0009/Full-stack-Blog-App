@@ -1,4 +1,5 @@
 import { FormEvent, useState } from "react";
+import { useAppSelector } from "../../store/hooks";
 
 interface Props {
   btnLabel: string;
@@ -16,6 +17,7 @@ const CommentForm = ({
   initialText = "",
 }: Props) => {
   const [value, setValue] = useState<string>(initialText);
+  const userInfo = useAppSelector(state => state.user.userInfo);
 
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -27,7 +29,7 @@ const CommentForm = ({
     <form onSubmit={submitHandler}>
       <div className="flex flex-col items-end border border-primary rounded-lg p-4">
         <textarea
-          placeholder="Leave your comment here..."
+          placeholder={userInfo ? "Leave your comment here..." : "Please Log In to leave the comment"}
           className="w-full focus:outline-none bg-transparent"
           rows={5}
           value={value}
@@ -45,7 +47,7 @@ const CommentForm = ({
             </button>
           )}
           <button
-            disabled={loading}
+            disabled={loading || !userInfo}
             type="submit"
             className={`px-6 py-2.5 rounded-lg bg-primary
              text-white font-semibold disabled:opacity-70 disabled:cursor-not-allowed`}
