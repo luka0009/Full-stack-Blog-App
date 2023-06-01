@@ -11,7 +11,7 @@ export const createPost = async (
   next: express.NextFunction
 ) => {
   try {
-    const {title, caption, tags, text1, text2, text3, text4} = req.body;
+    const { title, caption, tags, text1, text2, text3, text4 } = req.body;
     const post = new Post({
       title: title || "sample title",
       caption: caption || "sample caption",
