@@ -34,11 +34,7 @@ const Comments = ({ className, loggedInUserId, comments, postSlug }: Props) => {
   const { mutate: mutateNewComment, isLoading: isLoadingNewComment } =
     useMutation({
       mutationFn: ({
-        token,
-        desc,
-        slug,
-        parent,
-        replyOnUser,
+        token, desc, slug, parent, replyOnUser,
       }: CommentDataProps) => {
         return createComment({ token, desc, slug, parent, replyOnUser });
       },
