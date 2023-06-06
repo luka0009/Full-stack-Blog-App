@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
 import images from "../../../../constants/images";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiFillDashboard, AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { FaComments } from "react-icons/fa";
 import { MdDashboard } from "react-icons/md";
 import NavItem from "./NavItem";
 import NavItemCollapse from "./NavItemCollapse";
+//@ts-expect-error use hooks types
+import { useWindowSize } from "@uidotdev/usehooks";
 
 const MENU_ITEMS = [
   {
@@ -39,17 +41,30 @@ type ActiveName = "dashboard" | "posts" | "comments";
 const Header = () => {
   const [isMenuActive, setIsMenuActive] = useState(false);
   const [activeNavName, setActiveNavName] = useState<ActiveName>("dashboard");
+  const windowSize = useWindowSize();
 
   const toggleMenu = () => {
     setIsMenuActive((prev) => !prev);
   };
 
+  useEffect(() => {
+    if (windowSize.width < 1024) {
+      setIsMenuActive(false);
+    } else {
+      setIsMenuActive(true);
+    }
+  }, [windowSize.width]);
+
   return (
-    <header className="flex h-fit w-full justify-between px-8 p-3">
+    <header className="flex h-fit w-full justify-between px-8 p-3 lg:h-full lg:max-w-[300px] lg:flex-col lg:items-start lg:justify-center lg:p-0">
       <Link to="/">
-        <img src={images.logo} alt="logo" className="w-16 scale-[2]" />
+        <img
+          src={images.logo}
+          alt="logo"
+          className="w-16 scale-[2] lg:hidden"
+        />
       </Link>
-      <div className="cursor-pointer">
+      <div className="cursor-pointer lg:hidden">
         {isMenuActive ? (
           <AiOutlineClose className="w-6 h-6 mt-2" onClick={toggleMenu} />
         ) : (
@@ -58,13 +73,13 @@ const Header = () => {
       </div>
       {/* sidebar */}
       {isMenuActive && (
-        <div className="fixed inset-0">
+        <div className="fixed inset-0 lg:static lg:h-full lg:w-full">
           <div
-            className="fixed inset-0 bg-black opacity-50"
+            className="fixed inset-0 bg-black opacity-50 lg:hidden"
             onClick={toggleMenu}
           />
 
-          <div className="fixed top-0 bottom-0 left-0 z-50 w-3/4 overflow-y-auto bg-white p-4">
+          <div className="fixed top-0 bottom-0 left-0 z-50 w-3/4 overflow-y-auto bg-white p-4 lg:static lg:h-full lg:w-full lg:p-6">
             <Link to="/">
               <img src={images.logo} alt="logo" className="w-16 scale-[2]" />
             </Link>
@@ -73,24 +88,24 @@ const Header = () => {
             <div className="mt-6 flex flex-col gap-y-[0.563rem]">
               {MENU_ITEMS.map((item) =>
                 item.type === "link" ? (
-                  <NavItem 
-                  key={item.name}
-                  title={item.title}
-                  link={item.link}
-                  name={item.name}
-                  icon={item.icon}
-                  activeNavName={activeNavName}
-                  setActiveNavName={setActiveNavName}
+                  <NavItem
+                    key={item.name}
+                    title={item.title}
+                    link={item.link}
+                    name={item.name}
+                    icon={item.icon}
+                    activeNavName={activeNavName}
+                    setActiveNavName={setActiveNavName}
                   />
                 ) : (
-                  <NavItemCollapse 
-                  key={item.title}
-                  title={item.title}
-                  content={item.content}
-                  name={item.name}
-                  icon={item.icon}
-                  activeNavName={activeNavName}
-                  setActiveNavName={setActiveNavName}
+                  <NavItemCollapse
+                    key={item.title}
+                    title={item.title}
+                    content={item.content}
+                    name={item.name}
+                    icon={item.icon}
+                    activeNavName={activeNavName}
+                    setActiveNavName={setActiveNavName}
                   />
                 )
               )}

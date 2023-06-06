@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 type ContentItemType = {
@@ -25,6 +25,12 @@ const NavItemCollapse: React.FC<CollapseNavItemProps> = ({
 }) => {
   const [isChecked, setIsChecked] = useState(false);
 
+  useEffect(() => {
+    if (name !== activeNavName) {
+      setIsChecked(false);
+    }
+  }, [name, activeNavName]);
+
   return (
     <>
       <div className="collapse collapse-arrow bg-base-200 min-h-0 rounded-none py-2">
@@ -35,6 +41,10 @@ const NavItemCollapse: React.FC<CollapseNavItemProps> = ({
           onChange={() => {
             setActiveNavName(name);
             setIsChecked((isChecked) => !isChecked);
+
+            // //@ts-expect-error
+            // setActiveNavName((prevName) => (prevName === name ? "" : name));
+            // setIsChecked((prevState) => !prevState);
           }}
         />
         <div
@@ -43,6 +53,7 @@ const NavItemCollapse: React.FC<CollapseNavItemProps> = ({
               ? "font-bold text-primary"
               : "font-semibold text-[#A5A5A5]"
           }`}
+          
         >
           {icon}
           {title}
