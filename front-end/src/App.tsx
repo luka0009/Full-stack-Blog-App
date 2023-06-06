@@ -11,6 +11,7 @@ function App() {
   return (
     <>
       <Routes>
+      
         <Route path="/" element={<Home />} />
         <Route path="/blog/:slug" element={<ArticleDetail />} />
         <Route path="/register" element={<RegisterPage />} />

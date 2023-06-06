@@ -5,7 +5,7 @@ import { AiFillDashboard, AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { FaComments } from "react-icons/fa";
 import { MdDashboard } from "react-icons/md";
 import NavItem from "./NavItem";
-import NavItemCollapse from "../NavItemCollapse";
+import NavItemCollapse from "./NavItemCollapse";
 
 const MENU_ITEMS = [
   {
@@ -83,7 +83,15 @@ const Header = () => {
                   setActiveNavName={setActiveNavName}
                   />
                 ) : (
-                  <NavItemCollapse key={item.name} />
+                  <NavItemCollapse 
+                  key={item.title}
+                  title={item.title}
+                  content={item.content}
+                  name={item.name}
+                  icon={item.icon}
+                  activeNavName={activeNavName}
+                  setActiveNavName={setActiveNavName}
+                  />
                 )
               )}
             </div>
