@@ -100,14 +100,18 @@ const Header = () => {
 
   const logoutHandler = () => {
     dispatch(logOut());
-    localStorage.removeItem('user');
+    localStorage.removeItem("user");
   };
-
+  console.log(userInfo);
   return (
     <section className="sticky top-0 left-0 right-0 z-50 bg-white">
       <header className="container mx-auto px-5 flex justify-between py-4 items-center">
         <Link to="/">
-          <img className="w-16 scale-[2.2] lg:ml-3" src={images.logo} alt="logo" />
+          <img
+            className="w-16 scale-[2.2] lg:ml-3"
+            src={images.logo}
+            alt="logo"
+          />
         </Link>
         <div className="lg:hidden z-50">
           {isVisible ? (
@@ -132,7 +136,11 @@ const Header = () => {
                 <div className="flex flex-col items-center">
                   <button
                     className="flex gap-x-1 items-center mt-5 lg:mt-0 border-2 border-blue-500 px-6 py-2 rounded-full text-blue-500 font-semibold hover:bg-blue-500 hover:text-white transition-all duration-300"
-                    onClick={() => setProfileDrowpdown(profileDrowpdown => !profileDrowpdown)}
+                    onClick={() =>
+                      setProfileDrowpdown(
+                        (profileDrowpdown) => !profileDrowpdown
+                      )
+                    }
                   >
                     <span>Account</span>
                     <MdKeyboardArrowDown />
@@ -150,6 +158,15 @@ const Header = () => {
                       >
                         Profile
                       </button>
+                      {userInfo?.admin && (
+                        <button
+                          onClick={() => navigate("/admin")}
+                          type="button"
+                          className="hover:bg-dark-hard hover:text-white px-10 py-2 text-white lg:text-dark-soft"
+                        >
+                          Admin Dashboard
+                        </button>
+                      )}
                       <button
                         onClick={logoutHandler}
                         type="button"
@@ -163,9 +180,10 @@ const Header = () => {
               </div>
             </div>
           ) : (
-            <button 
-            onClick={() => navigate('/login')}
-            className="mt-5 lg:mt-0 border-2 border-blue-500 px-6 py-2 rounded-full text-blue-500 font-semibold hover:bg-blue-500 hover:text-white transition-all duration-300">
+            <button
+              onClick={() => navigate("/login")}
+              className="mt-5 lg:mt-0 border-2 border-blue-500 px-6 py-2 rounded-full text-blue-500 font-semibold hover:bg-blue-500 hover:text-white transition-all duration-300"
+            >
               Sign in
             </button>
           )}
