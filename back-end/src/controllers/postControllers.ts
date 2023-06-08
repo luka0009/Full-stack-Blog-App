@@ -11,7 +11,7 @@ export const createPost = async (
   next: express.NextFunction
 ) => {
   try {
-    const { title, caption, tags, text1, text2, text3, text4 } = req.body;
+    const { title, caption, tags, text } = req.body;
     const post = new Post({
       title: title || "sample title",
       caption: caption || "sample caption",
@@ -21,49 +21,9 @@ export const createPost = async (
         type: "doc",
         content: [
           {
-            type: "paragraph",
-            content: [
-              {
-                type: "text",
-                text: text1,
-              },
-            ],
-          },
-          {
-            type: "paragraph",
-            content: [
-              {
-                type: "text",
-                text: text2,
-              },
-            ],
-          },
-          {
-            type: "paragraph",
-            content: [
-              {
-                type: "text",
-                text: text3,
-              },
-            ],
-          },
-          {
-            type: "paragraph",
-            content: [
-              {
-                type: "text",
-                marks: [
-                  {
-                    type: "bold",
-                  },
-                  {
-                    type: "italic",
-                  },
-                ],
-                text: text4,
-              },
-            ],
-          },
+            type: "text",
+            text: text
+          }
         ],
       },
       photo: "",
