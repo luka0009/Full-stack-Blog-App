@@ -3,6 +3,9 @@ import "./styles.css";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import parse from "html-react-parser";
+import { useAppDispatch } from "../../../../../store/hooks";
+import { setText } from "../../../../../store/features/post/postSlice";
+import { useEffect } from "react";
 
 const MenuBar = ({ editor }: any) => {
   if (!editor) {
@@ -201,7 +204,7 @@ const MenuBar = ({ editor }: any) => {
   );
 };
 
-export default () => {
+const Tiptap = () => {
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -247,8 +250,16 @@ export default () => {
     `,
   });
 
-  //@ts-expect-error
-  const content = editor?.contentComponent?.editorContentRef?.current.innerHTML;
+  // const content = editor?.contentComponent?.editorContentRef?.current.innerHTML;
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (editor) {
+      const content = editor.getHTML();
+      dispatch(setText(content));
+    }
+  }, [editor]);
 
   return (
     <div>
@@ -257,9 +268,14 @@ export default () => {
       <br />
       <hr />
       <div>
-        {parse(`${content}`)}
-        {content}
+        {/* {parse(`${content}`)}
+        {content} */}
+        <div className="mt-4 prose prose-sm sm:prose-base">
+          {editor && parse(editor.getHTML())}
+        </div>
       </div>
     </div>
   );
 };
+
+export default Tiptap;

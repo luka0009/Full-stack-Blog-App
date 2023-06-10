@@ -1,11 +1,14 @@
-import Tiptap from "./components/Tiptap"
+import PostForm from "./components/PostForm";
+// import Tiptap from "./components/Tiptap";
 
 const NewPost = () => {
   return (
     <div className="">
-      <Tiptap />
+      <PostForm />
+      {/* <Tiptap /> */}
+      
     </div>
-  )
-}
+  );
+};
 
-export default NewPost
+export default NewPost;
