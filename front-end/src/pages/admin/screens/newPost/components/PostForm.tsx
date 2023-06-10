@@ -131,7 +131,7 @@ const PostForm = () => {
                 const tagsArray = value
                   .split(",")
                   .map((tag: string) => tag.trim());
-                setTags([...tagsArray]); // Update the tags array state
+                setTags([...tagsArray]);
                 return tagsArray.length > 0 || "At least one tag is required";
               },
             })}
