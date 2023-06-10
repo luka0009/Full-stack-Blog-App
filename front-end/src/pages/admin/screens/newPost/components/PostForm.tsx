@@ -86,7 +86,7 @@ const PostForm = () => {
                 message: "Title is required",
               },
             })}
-            placeholder="Blog about Web 3"
+            placeholder="Your post title"
             className={`placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg 
                 px-5 py-4 font-semibold block outline-none border ${
                   errors.title ? "border-red-500" : "border-[#c3cad9]"
@@ -108,7 +108,7 @@ const PostForm = () => {
             type="text"
             id="caption"
             {...register("caption")}
-            placeholder="Exploring new feautures of web"
+            placeholder="Your post caption"
             className={`placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg 
                 px-5 py-4 font-semibold block outline-none border ${
                   errors.caption ? "border-red-500" : "border-[#c3cad9]"
@@ -135,7 +135,7 @@ const PostForm = () => {
                 return tagsArray.length > 0 || "At least one tag is required";
               },
             })}
-            placeholder="web, web3, "
+            placeholder="tag 1, tag 2, ... "
             className={`placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg 
         px-5 py-4 font-semibold block outline-none border ${
           errors.tags ? "border-red-500" : "border-[#c3cad9]"
