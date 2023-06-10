@@ -1,4 +1,5 @@
 import axios from "axios";
+import { PostFormInputs } from "../types";
 
 export const getAllPosts = async () => {
   try {
@@ -22,7 +23,7 @@ export const getSinglePost = async ({ slug }: any) => {
   }
 };
 
-export const createPost = async ({ title, caption, tags, text, token }: any) => {
+export const createPost = async ({ title, caption, tags, text, token }: PostFormInputs) => {
   try {
     const config = {
         headers: {

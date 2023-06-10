@@ -13,3 +13,11 @@ export interface Comment {
   replyOnUser?: any;
   createdAt: string;
 }
+
+export interface PostFormInputs {
+  title: string;
+  caption?: string;
+  tags?: string[];
+  text: string;
+  token: any;
+}

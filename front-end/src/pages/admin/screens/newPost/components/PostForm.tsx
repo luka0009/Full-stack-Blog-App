@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createPost } from "../../../../../services/posts";
 import toast from "react-hot-toast";
 import Tiptap from "./Tiptap";
+import { PostFormInputs } from "../../../../../types";
 
 const ErrorMessage = ({ message }: { message: string }) => (
   <p className="text-red-500 text-xs mt-1">{message}</p>
@@ -39,7 +40,7 @@ const PostForm = () => {
   }, [text, setValue]);
 
   const { mutate, isLoading } = useMutation({
-    mutationFn: ({ title, caption, tags, text, token }: any) => {
+    mutationFn: ({ title, caption, tags, text, token }: PostFormInputs) => {
       return createPost({ title, caption, tags, text, token });
     },
     onSuccess: (data) => {
