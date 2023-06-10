@@ -148,14 +148,8 @@ const PostForm = () => {
         <ul className="list-disc ml-4 text-lg font-bold">
           <li className="mb-2">There is a sample text in the box</li>
           <li className="mb-2">
-            Below, the editor box you can see how the text looks like
-          </li>
-          <li className="mb-2">
             To create new post, just delete text in editor and create your
             custom text
-          </li>
-          <li className="mb-2">
-            Before you post, check below the box how it looks like
           </li>
         </ul>
         <Tiptap />

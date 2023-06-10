@@ -264,15 +264,17 @@ const Tiptap = () => {
   return (
     <div>
       <MenuBar editor={editor} />
+      <div className="mt-4 prose prose-sm sm:prose-base">
       <EditorContent editor={editor} />
+      </div>
       <br />
       <hr />
       <div>
         {/* {parse(`${content}`)}
         {content} */}
-        <div className="mt-4 prose prose-sm sm:prose-base">
+        {/* <div className="mt-4 prose prose-sm sm:prose-base">
           {editor && parse(editor.getHTML())}
-        </div>
+        </div> */}
       </div>
     </div>
   );
