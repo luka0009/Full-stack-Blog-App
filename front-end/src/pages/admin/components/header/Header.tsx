@@ -86,7 +86,7 @@ const Header = () => {
             <h4 className="mt-10 font-bold text-blue-700">Main Menu</h4>
             menu items
             <div className="mt-6 flex flex-col gap-y-[0.563rem]">
-              {MENU_ITEMS.map((item) =>
+              {MENU_ITEMS.map((item, index) =>
                 item.type === "link" ? (
                   <NavItem
                     key={item.name}
@@ -99,7 +99,7 @@ const Header = () => {
                   />
                 ) : (
                   <NavItemCollapse
-                    key={item.title}
+                    key={index}
                     title={item.title}
                     content={item.content}
                     name={item.name}
