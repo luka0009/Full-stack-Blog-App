@@ -254,18 +254,22 @@ const Tiptap = () => {
 
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    if (editor) {
-      const content = editor.getHTML();
-      dispatch(setText(content));
-    }
-  }, [editor]);
+  // useEffect(() => {
+  //   if (editor) {
+  //     const content = editor.getHTML();
+  //     dispatch(setText(content));
+  //     console.log(content);
+  //   }
+  // }, [editor, editor?.options?.content]);
+
+  const content = editor?.getHTML();
+  dispatch(setText(content));
 
   return (
     <div>
       <MenuBar editor={editor} />
       <div className="mt-4 prose prose-sm sm:prose-base">
-      <EditorContent editor={editor} />
+        <EditorContent editor={editor} />
       </div>
       <br />
       <hr />
