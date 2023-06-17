@@ -1,15 +1,16 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import BreadCrumbs from "../../components/BreadCrumbs";
 import MainLayout from "../../components/MainLayout";
 import SuggestedPosts from "./container/SuggestedPosts";
 import Comments from "../../components/comments/Comments";
 // import SocialShareButtons from "../../components/SocialShareButtons";
-import { useQuery } from "@tanstack/react-query";
-import { getAllPosts, getSinglePost } from "../../services/posts";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { getAllPosts, getSinglePost, DeletePost } from "../../services/posts";
 import { useState } from "react";
 import stables from "../../constants/stables";
 import images from "../../constants/images";
 import { generateHTML } from "@tiptap/html";
+
 import Bold from "@tiptap/extension-bold";
 import Document from "@tiptap/extension-document";
 import Paragraph from "@tiptap/extension-paragraph";
@@ -19,6 +20,7 @@ import parse from "html-react-parser";
 import ArticleDetailSkeleton from "./components/ArticleDetailSkeleton";
 import ErrorMessage from "../../components/ErrorMessage";
 import { useAppSelector } from "../../store/hooks";
+import toast from "react-hot-toast";
 
 interface BrCrumbs {
   name: string;
@@ -30,6 +32,8 @@ const ArticleDetail = () => {
   const userInfo = useAppSelector((state) => state.user.userInfo);
   const [breadCrumbsData, setbreadCrumbsData] = useState<BrCrumbs[]>([]);
   const [body, setBody] = useState(null);
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const { data, isLoading, isError } = useQuery({
     queryFn: () => getSinglePost({ slug }),
@@ -53,6 +57,20 @@ const ArticleDetail = () => {
   const { data: postsData } = useQuery({
     queryFn: () => getAllPosts(),
     queryKey: ["posts"],
+  });
+
+  const { mutate: mutateDeletePost } = useMutation({
+    mutationFn: ({ token, slug }: { token: string; slug: string }) => {
+      return DeletePost({ token, slug });
+    },
+    onSuccess: () => {
+      toast.success(`Post deleted succecsfully`);
+      queryClient.invalidateQueries(["posts"]);
+    },
+    onError: (error: any) => {
+      toast.error(error.message);
+      console.log(error);
+    },
   });
 
   return (
@@ -86,6 +104,17 @@ const ArticleDetail = () => {
                 );
               })}
             </div>
+            {userInfo._id === data?.user?._id && (
+              <button
+                onClick={() => {
+                  mutateDeletePost({ token: userInfo.token, slug: data.slug });
+                  navigate("/");
+                }}
+                className="btn btn-primary bg-red-600 hover:bg-red-500 text-white"
+              >
+                Delete Post
+              </button>
+            )}
             <h1 className="text-xl font-medium font-roboto mt-4 text-dark-hard md:text-[26px]">
               {data?.title}
             </h1>

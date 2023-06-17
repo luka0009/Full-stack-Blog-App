@@ -12,6 +12,26 @@ export const getAllPosts = async () => {
   }
 };
 
+export const DeletePost = async ({ slug, token }: any) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const { data } = await axios.delete(
+      `http://localhost:5000/api/posts/${slug}`,
+      config
+    );
+    return data;
+  } catch (error: any) {
+    if (error.response && error.response.data.message)
+      throw new Error(error.response.data.message);
+    throw new Error(error.message);
+  }
+};
+
 export const getSinglePost = async ({ slug }: any) => {
   try {
     const { data } = await axios.get(`http://localhost:5000/api/posts/${slug}`);
@@ -23,20 +43,30 @@ export const getSinglePost = async ({ slug }: any) => {
   }
 };
 
-export const createPost = async ({ title, caption, tags, text, token }: PostFormInputs) => {
+export const createPost = async ({
+  title,
+  caption,
+  tags,
+  text,
+  token,
+}: PostFormInputs) => {
   try {
     const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
 
-    const { data } = await axios.post(`http://localhost:5000/api/posts/`, {
+    const { data } = await axios.post(
+      `http://localhost:5000/api/posts/`,
+      {
         title,
         caption,
         tags,
         text,
-    }, config);
+      },
+      config
+    );
     return data;
   } catch (error: any) {
     if (error.response && error.response.data.message)

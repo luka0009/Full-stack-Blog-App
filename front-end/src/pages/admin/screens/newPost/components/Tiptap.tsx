@@ -254,16 +254,26 @@ const Tiptap = () => {
 
   const dispatch = useAppDispatch();
 
-  // useEffect(() => {
-  //   if (editor) {
-  //     const content = editor.getHTML();
-  //     dispatch(setText(content));
-  //     console.log(content);
-  //   }
-  // }, [editor, editor?.options?.content]);
+  useEffect(() => {
+    if (editor) {
+      const updateText = () => {
+        const content = editor.getHTML();
+        dispatch(setText(content));
+        console.log('Changed:', content);
+      };
+  
+      // Update the text when the editor's content changes
+      editor.on('update', updateText);
+  
+      // Cleanup function to remove the event listener
+      return () => {
+        editor.off('update', updateText);
+      };
+    }
+  }, [editor, dispatch]);
 
-  const content = editor?.getHTML();
-  dispatch(setText(content));
+  // const content = editor?.getHTML();
+  // dispatch(setText(content));
 
   return (
     <div>

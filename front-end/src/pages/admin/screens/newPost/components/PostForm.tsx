@@ -70,6 +70,14 @@ const PostForm = () => {
     <div>
       <form onSubmit={handleSubmit(handleFormSubmit)}>
         <div className="flex flex-col mb-6 w-full">
+          <ul className="list-disc ml-4 text-lg font-bold">
+            <li className="mb-2">There is a sample text in the box</li>
+            <li className="mb-2">
+              To create new post, just delete text in editor and create your
+              custom text
+            </li>
+          </ul>
+          <Tiptap />
           <label htmlFor="title" className="text-[#5a7184] font-semibold block">
             Title
           </label>
@@ -145,14 +153,6 @@ const PostForm = () => {
             <ErrorMessage message={errors.tags.message as string} />
           )}
         </div>
-        <ul className="list-disc ml-4 text-lg font-bold">
-          <li className="mb-2">There is a sample text in the box</li>
-          <li className="mb-2">
-            To create new post, just delete text in editor and create your
-            custom text
-          </li>
-        </ul>
-        <Tiptap />
         <button
           type="submit"
           className="bg-primary mt-2 text-white font-bold text-lg py-3 px-1 w-full rounded-lg mb-6 disabled:opacity-70 disabled:cursor-not-allowed"
