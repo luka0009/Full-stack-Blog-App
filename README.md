@@ -15,17 +15,16 @@ Follow these steps to install and set up the project:
 
 1. Install project dependencies by running the following command:
 
-`npm install` 
+`npm install`
 
 2. Create a new file named `.env` in the root directory of the project.
 
 3. Add the following configuration variables to the `.env` file:
 
-PORT=<PORT>
-MONGO_URI=<YOUR_MONGO_URI>
-JWT_SECRET=<YOUR_JWT_SECRET>
-NODE_ENV=<NODE_ENV>
-
+   MONGO_URI = <YOUR_MONGO_URI>
+   PORT = <PORT>
+   JWT_SECRET = <YOUR_JWT_SECRET>
+   NODE_ENV=<NODE_ENV>
 
 ## License
 
