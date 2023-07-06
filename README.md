@@ -15,7 +15,7 @@ Follow these steps to install and set up the project:
 
 1. Install project dependencies by running the following command:
 
-npm install 
+`npm install` 
 
 2. Create a new file named `.env` in the root directory of the project.
 
