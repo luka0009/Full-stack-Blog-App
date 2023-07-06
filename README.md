@@ -21,10 +21,10 @@ Follow these steps to install and set up the project:
 
 3. Add the following configuration variables to the `.env` file:
 
-   MONGO_URI = <YOUR_MONGO_URI>
-   PORT = <PORT>
-   JWT_SECRET = <YOUR_JWT_SECRET>
-   NODE_ENV=<NODE_ENV>
+- `PORT`=`<PORT>`
+- `MONGO_URI`=`<YOUR_MONGO_URI>`
+- `JWT_SECRET`=`<YOUR_JWT_SECRET>`
+- `NODE_ENV`=`<NODE_ENV>`
 
 ## License
 
