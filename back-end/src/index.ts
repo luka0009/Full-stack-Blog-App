@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import connectDB from "./config/db";
 import userRoutes from "./routes/userRoutes";
 import { errorResponseHandler, invalidPathHandler } from "./middleware/errorHandler";
+
 import cors from 'cors';
 import path from 'path';
 import postRoutes from "./routes/postRoutes";
