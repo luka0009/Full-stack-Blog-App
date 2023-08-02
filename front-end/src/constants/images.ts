@@ -11,5 +11,5 @@ const images = {
     userImage,
     ctaImage
   };
-  
+  //.
 export default images;
