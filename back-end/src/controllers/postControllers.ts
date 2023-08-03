@@ -210,3 +210,61 @@ export const getAllPosts = async (
 		next(error);
 	}
 };
+
+export const getAllPostsByUser = async (
+	req: express.Request,
+	res: express.Response,
+	next: express.NextFunction
+) => {
+	try {
+		const filter = req.query.searchKeyword;
+		let where: any = {};
+
+		if (filter) {
+			where.title = { $regex: filter, $options: "i" };
+		}
+
+		let query = Post.find(where);
+
+		//@ts-ignore
+		if (req.user && req.user._id) {
+			//@ts-ignore
+			query = query.where("user").equals(req.user._id);
+		}
+		//@ts-ignore
+		const page = parseInt(req.query.page) || 1;
+		//@ts-ignore
+		const pageSize = parseInt(req.query.limit) || 10;
+		const skip = (page - 1) * pageSize;
+		const total = await Post.countDocuments();
+		const pages = Math.ceil(total / pageSize);
+
+		if (page > pages) {
+			const error = new Error("Page wasn't found");
+			return next(error);
+		}
+
+		const result = await query
+			.skip(skip)
+			.limit(pageSize)
+			.populate([
+				{
+					path: "user",
+					select: ["avatar", "name", "verified"],
+				},
+			])
+			.sort({ updatedAt: "desc" });
+
+		res.header({
+			"x-filter": filter,
+			"x-totalCount": JSON.stringify(total),
+			"x-currentPage": JSON.stringify(page),
+			"x-pageSize": JSON.stringify(pageSize),
+			"x-totalPageCount": JSON.stringify(pages),
+		});
+
+		return res.json(result);
+	} catch (error) {
+		next(error);
+	}
+};
