@@ -105,15 +105,32 @@ const ArticleDetail = () => {
 							})}
 						</div>
 						{userInfo._id === data?.user?._id && (
-							<button
-								onClick={() => {
-									mutateDeletePost({ token: userInfo.token, slug: data.slug });
-									navigate("/");
-								}}
-								className="btn btn-primary bg-red-600 hover:bg-red-500 text-white"
-							>
-								Delete Post
-							</button>
+							<div className="flex flex-col gap-3 w-fit">
+								<button
+									onClick={() => {
+										if (
+											window.confirm("Do you really want to delete the post?")
+										) {
+											mutateDeletePost({
+												token: userInfo.token,
+												slug: data.slug,
+											});
+											navigate("/");
+										}
+									}}
+									className="btn btn-primary bg-red-600 hover:bg-red-500 text-white"
+								>
+									Delete Post
+								</button>
+								<button
+									onClick={() => {
+										navigate(`/admin/posts/manage/edit/${slug}`);
+									}}
+									className="btn btn-primary bg-yellow-600 hover:bg-yellow-500 text-white"
+								>
+									Update Post
+								</button>
+							</div>
 						)}
 						<h1 className="text-xl font-medium font-roboto mt-4 text-dark-hard md:text-[26px]">
 							{data?.title}

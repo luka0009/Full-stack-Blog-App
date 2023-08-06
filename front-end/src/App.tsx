@@ -10,26 +10,28 @@ import Admin from "./pages/admin/screens/Admin";
 import Comments from "./pages/admin/screens/Comments";
 import NewPost from "./pages/admin/screens/newPost/NewPost";
 import ManagePosts from "./pages/admin/screens/ManagePosts";
+import EditPost from "./pages/admin/screens/EditPost";
 
 function App() {
-  return (
-    <>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/blog/:slug" element={<ArticleDetail />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<Admin />} />
-          <Route path="comments" element={<Comments />} />
-          <Route path="posts/new" element={<NewPost />} />
-          <Route path="posts/manage" element={<ManagePosts />} />
-        </Route>
-      </Routes>
-      <Toaster />
-    </>
-  );
+	return (
+		<>
+			<Routes>
+				<Route path="/" element={<Home />} />
+				<Route path="/blog/:slug" element={<ArticleDetail />} />
+				<Route path="/register" element={<RegisterPage />} />
+				<Route path="/login" element={<LoginPage />} />
+				<Route path="/profile" element={<ProfilePage />} />
+				<Route path="/admin" element={<AdminLayout />}>
+					<Route index element={<Admin />} />
+					<Route path="comments" element={<Comments />} />
+					<Route path="posts/new" element={<NewPost />} />
+					<Route path="posts/manage" element={<ManagePosts />} />
+					<Route path="posts/manage/edit/:slug" element={<EditPost />} />
+				</Route>
+			</Routes>
+			<Toaster />
+		</>
+	);
 }
 
 export default App;

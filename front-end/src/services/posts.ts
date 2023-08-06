@@ -56,6 +56,27 @@ export const DeletePost = async ({ slug, token }: any) => {
 	}
 };
 
+export const updatePost = async ({ updatedData, slug, token }: any) => {
+	try {
+		const config = {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		};
+
+		const { data } = await axios.patch(
+			`http://localhost:5000/api/posts/${slug}`,
+			updatedData,
+			config
+		);
+		return data;
+	} catch (error: any) {
+		if (error.response && error.response.data.message)
+			throw new Error(error.response.data.message);
+		throw new Error(error.message);
+	}
+};
+
 export const getSinglePost = async ({ slug }: any) => {
 	try {
 		const { data } = await axios.get(`http://localhost:5000/api/posts/${slug}`);
